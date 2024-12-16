@@ -1,0 +1,239 @@
+Useractive Bio Generator.
+
+A simple python-based interactive command-line tool that demonstrates how programming can bridge functionality, user engagement, and creative expression. Designed to dynamically collect, validate, and format user input, this project i did serves as a practical example of computational thinking applied to personalized output generation. By incorporating techniques such as text animations, ASCII art, and modular coding practices, the tool offers a polished and engaging user experience. One step closer. 
+
+# Key Features of the code
+
+• Dynamic ASCII Art: The application introduces users with custom dragon-themed ASCII art, accompanied by multilingual greetings, setting an engaging and inclusive tone.
+
+• Interactive Input Handling: Prompts users for detailed input (e.g., title, name, date of birth, department code) with error-handling mechanisms to ensure data accuracy and integrity.
+
+• Automated Calculations and Mapping: Calculates the user’s age based on their date of birth. Maps department codes (e.g., CS for Computer Science) to full department names for clarity and professionalism.
+
+• Customizable Output: Allows users to add an optional personalized quote with attribution, reflecting their individuality.
+
+• Workflow Validation: Includes a confirmation and editing process, enabling users to review and refine their input before finalizing the generated bio.
+
+• Aesthetic Text Effects: Implements typewriter-style text animations and ANSI color codes for a visually appealing and professional presentation.
+
+¶ How It Works
+The application begins by greeting users with ASCII art and a warm welcome message.
+Then collects user info through an interactive series of prompts, ensuring data validity like checking date formats, etc,.
+
+Once the data is collected, the program dynamically calculates and maps the information to generate a bio, which includes:
+1.    Title and full name.
+2.    Calculated age.
+3.    Department information.
+4.    An optional, user-provided quote.
+5.    Users can review the generated bio, edit it if necessary, or confirm the final output.
+
+Below is an example of the generated output:
+
+🐉      H E L L O       П Р И В Е Т      مَرْحَبًا     你好     H O L A     B O N J O U R     नमस्ते
+
+Warm Welcome, Blazer!
+Congratulations on choosing UAB, where the future isn't just something to dream about—it's something we create.
+
+Dr. Grant Sikes is a seasoned professional in the Department of Computer Science at UAB. At 22 years old, Dr. Grant Sikes brings extensive experience and a passion for the field.
+
+Favorite Quote:
+"The people who are crazy enough to think they can change the world are the ones who do."
+–Steve Jobs
+
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+The Interactive Bio Generator was developed to explore the following principles:
+
+1. Human-Centered Programming: Enhancing user experience through dynamic text effects and engaging prompts.
+2. Information Processing: Demonstrating the seamless integration of user input validation, computational logic, and                               personalized output formatting.
+3. Modular Software Design: Employing reusable functions for maintainable and scalable code.
+
+This is a reflection of how programming can serve as a tool for creativity and meaningful engagement. Potential applications include:
+
+Educational Tools: Personalized report generation or student bio creation for academic settings.
+Professional Use Cases: Automated profile creation or onboarding workflows in organizational contexts.
+Interactive Applications: User-centered interfaces for enhanced engagement in other command-line tools.
+Technical Highlights
+Robust Error Handling:
+Ensures proper validation of user inputs (e.g., date formats, department codes) to maintain accuracy.
+Reusable Modular Design:
+Functions like type_effect, calculate_age, and colored ensure clean, maintainable, and extensible code.
+Aesthetic Presentation:
+Incorporates ANSI escape sequences and typewriter-style text animations to elevate user interaction.
+Cross-Platform Compatibility:
+Dynamically detects terminal capabilities for color support, ensuring consistent functionality across platforms.
+
+¶ --How to Use
+Clone the repository to your local environment
+git clone https://github.com/yourusername/bio-generator.git
+Navigate to the project directory:
+cd bio-generator
+Run the script using Python
+python3 grant_sikes_lab.py
+
+
+CODE:
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+import datetime
+import random
+import time
+import os
+import sys
+
+# Checking for color support os integration
+def supports_color():
+    return sys.platform != 'win32' and (sys.stdout.isatty() or 'WT_SESSION' in os.environ or 'TERM_PROGRAM' in os.environ)
+
+# Apply color to text
+def colored(text, color_name):
+    color_codes = {
+        "red": "31",
+        "green": "32",
+        "yellow": "33",
+        "blue": "34",
+        "magenta": "35",
+        "cyan": "36",
+        "white": "37"
+    }
+    color_code = color_codes.get(color_name.lower(), "37")
+    if supports_color():
+        return f"\033[{color_code}m{text}\033[0m"
+    return text
+
+# Typing effect for text
+def type_effect(text, delay=0.03):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+# Fast typing effect for the ASCII art
+def fast_type_effect(text, delay=0.005):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+# ASCII art
+def print_ascii_art():
+    art = r"""
+                             ___====-_  _-====___
+                      _--^^^#####//      \\#####^^^--_
+                   _-^##########// (    ) \\##########^-_
+                  -############//  |\^^/|  \\############-
+                _/############//   (@::@)   \\############\_
+               /#############((     \\//     ))#############\
+              -###############\\    (oo)    //###############-
+             -#################\\  / `' \  //#################-
+            -###################\\/  ___  \\/###################-
+           _#/|##########/\######(   |   |   )######/\##########|\#_
+           |/ |#/\/#/\/  \/\/#| \  |   |  / |/\/#\/  \/\/#\/| \|
+           |/  V  V  V     V  V  |  |   |  |  V  V  V     V  V  |  \|
+           |                      |  |   |  |                      |
+           |                     |   \ /   |                      |
+           |                      \       /                       |
+            -    \             |   |       |   |              /    -
+             -   -              |   |       |   |              -   -
+              -   -              \ |   | |   | /              -   -
+               -  -              | |   | |   | |              -  -
+                --               | |   | |   | |               --
+                                  \ \__/   \__/ /
+           🐉      H E L L O       П Р И В Е Т      مَرْحَبًا     你好     H O L A     B O N J O U R     नमस्ते
+    """
+    fast_type_effect(colored(art, "blue"))
+
+# Calculate age from DOB
+def calculate_age(birth_date):
+    today = datetime.datetime.today()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
+
+# Get department name from code
+def get_department_name(code):
+    departments = {
+        "CS": "Computer Science",
+        "DS": "Data Science",
+        "BIF": "Bioinformatics"
+    }
+    return departments.get(code.upper(), "Unknown Department")
+
+# Gather user information dynamically
+def gather_user_info():
+    print_ascii_art()
+    type_effect("\nWarm Welcome, Blazer!\n")
+    type_effect("Congratulations on choosing UAB, where the future isn't just something to dream about—it's something we create.\n")
+
+    title = input("Enter your title: ").strip()
+    first_name = input("Enter your first name: ").strip().capitalize()
+    last_name = input("Enter your last name: ").strip().capitalize()
+    full_name = f"{first_name} {last_name}"
+
+    while True:
+        try:
+            birth_date = input("Enter your date of birth (MM/DD/YYYY): ").strip()
+            birth_date = datetime.datetime.strptime(birth_date, "%m/%d/%Y")
+            break
+        except ValueError:
+            print("Invalid date format. Please use MM/DD/YYYY.")
+    
+    age = calculate_age(birth_date)
+
+    department_code = input("Enter your department code (CS, DS, BIF): ").strip().upper()
+    department = get_department_name(department_code)
+
+    show_quote = input("Would you like to include a quote? (yes/no): ").strip().lower()
+
+    favorite_quote, quote_credit = None, None
+    if show_quote == "yes":
+        favorite_quote = input("Enter quote: ").strip()
+        quote_credit = input("Enter the credit for the quote (leave blank to skip): ").strip()
+
+    bio_intro = create_bio_introduction(title, full_name, age, department)
+
+    return bio_intro, first_name, last_name, age, department, favorite_quote, quote_credit
+
+# Create bio introduction
+def create_bio_introduction(title, full_name, age, department):
+    intro = (
+        f"{title} {full_name} is a seasoned professional in the Department of {department} at UAB. "
+        f"At {age} years old, {title} {full_name} brings extensive experience and a passion for the field."
+    )
+    return intro
+
+# Main program loop
+def main():
+    while True:
+        bio_intro, first_name, last_name, age, department, favorite_quote, quote_credit = gather_user_info()
+
+        type_effect(colored("\n" + "=" * 40, "blue"))
+        type_effect("\nHere's a preview of your directory:\n")
+        type_effect(bio_intro)
+        type_effect("\nFaculty Information:")
+        type_effect(f"Department: Department of {department}")
+        type_effect(f"Name: {first_name} {last_name}")
+        type_effect(f"Age: {age} years old")
+
+        if favorite_quote:
+            type_effect(f"\nFavorite Quote:\n\"{favorite_quote}\"")
+            if quote_credit:
+                type_effect(f"–{quote_credit}")
+
+        type_effect(colored("\n" + "=" * 40, "blue"))
+
+        confirmation = input("Does everything look correct? (yes/no/edit): ").strip().lower()
+        if confirmation == "yes":
+            type_effect(f"\nGreat! This will be added to the UAB directory under {last_name}.\n")
+            break
+        elif confirmation == "edit":
+            type_effect("\nLet's edit your bio.\n")
+        else:
+            type_effect("\nRestarting the process...\n")
+
+if __name__ == "__main__":
+    main()
+
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––---
+
+
+
+
